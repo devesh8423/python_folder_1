@@ -123,6 +123,6 @@ id of 7 Digit or 10igit Also)
 # make this crm by sing dictionary
 # create your own account on github and publish the crm software on it 
 #world biggest website Quora..
-# world biggest website for technical question answer is stackflow
+# world biggest website for technical question answer is stackoverflow
 
 # on your resume mention your github id and stackoverflow id, also mention you are an active contributor to stackflow.
