@@ -9,7 +9,7 @@ import os
 engine=pyttsx3.init('sapi5')
 voices=engine.getProperty("voices")
 engine.setProperty('voice',voices[1].id )
-engine.setProperty('rate',150)
+engine.setProperty('rate',200)
 # engine.say('Good morrning boss,how are you?')
 # engine.runAndWait()  # loop
 
