@@ -126,3 +126,11 @@ id of 7 Digit or 10igit Also)
 # world biggest website for technical question answer is stackoverflow
 
 # on your resume mention your github id and stackoverflow id, also mention you are an active contributor to stackflow.
+# worlds biggest website for information wikipedia
+# create your account on hackerEarth.com
+#select your favorite programming language as python
+# Start solving python problems
+# creAte a good work
+# Hacker rank:
+# Hacker earth:
+# Code chef:
