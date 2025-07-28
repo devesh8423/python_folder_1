@@ -1,5 +1,5 @@
 #presentation layer
-from  CRM_oops import *
+from  CRM_DBconnect import *
 from tkinter import *
 from tkinter import messagebox
 
@@ -59,21 +59,26 @@ def display_handler():
     mob_all_customer=Label(root_all_customer,text="customer MOB",font=1,bg="orange",width=20,height=2)
     mob_all_customer.grid(row=0,column=3)
     e=0
-    for i in Customer.cus_list:
+
+    qry="select * from custb"
+    Customer.Cur.execute(qry)
+    data=Customer.Cur.fetchall()
+    for i in data:
         e+=1
-        lbl_id_cust=Label(root_all_customer,text=i.id,font=1,bg="Yellow",width=20,height=2)
+        lbl_id_cust=Label(root_all_customer,text=i[0],font=1,bg="Yellow",width=20,height=2)
         lbl_id_cust.grid(row=e,column=0)
 
-        lbl_name_cust=Label(root_all_customer,text=i.name,font=1,bg="Yellow",width=20,height=2)
+        lbl_name_cust=Label(root_all_customer,text=i[1],font=1,bg="Yellow",width=20,height=2)
         lbl_name_cust.grid(row=e,column=1)
 
-        lbl_age_cust=Label(root_all_customer,text=i.age,font=1,bg="Yellow",width=20,height=2)
+        lbl_age_cust=Label(root_all_customer,text=i[2],font=1,bg="Yellow",width=20,height=2)
         lbl_age_cust.grid(row=e,column=2)
 
-        lbl_mob_cust=Label(root_all_customer,text=i.mob,font=1,bg="Yellow",width=20,height=2)
+        lbl_mob_cust=Label(root_all_customer,text=i[3],font=1,bg="Yellow",width=20,height=2)
         lbl_mob_cust.grid(row=e,column=3)
 
 
+    
     
 def save_handler():
     Customer.saveTopickle()

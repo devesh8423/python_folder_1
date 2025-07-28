@@ -2,8 +2,11 @@
 
 # Business logic layer:
 import pickle
+import pymysql
 class Customer:
     cus_list=[]
+    con=pymysql.connect(host="localhost",user="root",password="devesh@2425",database="cus1")
+    Cur=con.cursor()
     def __init__(self):
         self.id=0
         self.name=0
@@ -11,27 +14,39 @@ class Customer:
         self.mob=0
     def addCustomer(self):
         Customer.cus_list.append(self)
-
+        Customer.Cur.execute(f"insert into custb values({self.id},'{self.name}',{self.age},'{self.mob}')")
+        Customer.con.commit()
     def searchCustomer(self):
-        for i in Customer.cus_list:
-            if i.id==self.id:
-                self.name=i.name
-                self.age=i.age
-                self.mob=i.mob
-                return
+        # for i in Customer.cus_list:
+        #     if i.id==self.id:
+        #         self.name=i.name
+        #         self.age=i.age
+        #         self.mob=i.mob
+        #         return
+        qry=f"select * from custb where id={self.id}"
+        Customer.Cur.execute(qry)
+        data=Customer.Cur.fetchone()
+        self.name=data[1] 
+        self.age=data[2] 
+        self.mob=data[3] 
     def deleteCustomer(self):
-        for i in Customer.cus_list:
-            if i.id==self.id:
-                Customer.cus_list.remove(i)
-                return
+        # for i in Customer.cus_list:
+        #     if i.id==self.id:
+        #         Customer.cus_list.remove(i)
+        #         return
+        qry=f"Delete from custb where id={self.id}"
+        Customer.Cur.execute(qry)
+        Customer.con.commit()
     def modifyCustomer(self):
-        for i in Customer.cus_list:
-            if i.id==self.id:
-                i.name=self.name
-                i.age=self.age
-                i.mob=self.mob
-                return
-            
+        # for i in Customer.cus_list:
+        #     if i.id==self.id:
+        #         i.name=self.name
+        #         i.age=self.age
+        #         i.mob=self.mob
+        #         return
+        qry=f"update custb set name='{self.name}',age={self.age},mob='{self.mob}' where id={self.id}"
+        Customer.Cur.execute(qry)
+        Customer.con.commit()
     @staticmethod
     def saveTopickle():
         f=open("d://temp/cmsdata.txt","wb")
@@ -44,15 +59,9 @@ class Customer:
         Customer.cus_list=pickle.load(f)
         f.close()
 
-    @staticmethod
-    def sort_criteria(cus):
-        return cus.id
 
 
-    
-    @staticmethod
-    def sort_by_id():
-        Customer.cus_list.sort(key=Customer.sort_criteria)
+
 
 # presentation layer
 if(__name__=="__main__"):
@@ -73,16 +82,16 @@ if(__name__=="__main__"):
 
     #         else:
     #             print("Enter Mob No with digits only!")        
-        
+    
     while(1):
         cus=Customer()
         ch=input("""Enter Choice: 1 Add, 2 Search, 3 Delete, 4 modify, 5 Display, 6 Exit 
-    7 save, 8 Load,9 sort: """)
+    7 save, 8 Load: """)
         if ch=="1":
             cus.id=input("Enter cust Id: ")
             cus.name=input("Enter cust Name: ")
             cus.age=input("Enter cust Age: ")
-            cus.mob=input("Enter Mob")
+            cus.mob=input("Enter Mob:")
             cus.addCustomer()
             print("Customer Added successfully !")
         elif(ch=="2"):      #search customer
@@ -118,8 +127,6 @@ if(__name__=="__main__"):
         elif(ch=="8"):
             Customer.loadFromPickle()
 
-        elif (ch=="9"): #sort
-            Customer.sort_by_id()
 
         else:
             print("Incorrect choice !")
